@@ -12,10 +12,10 @@ export class GeoLocationService {
       .pipe(
         map((response) => response.data),
         map((data) => ({
-          city: data.map(item => item.display_name),
-          locations: data.map(item => ({
-            latitude: item.lat,
-            longitude: item.lon,
+          city: data.map(city => city.display_name),
+          locations: data.map(location => ({
+            latitude: location.lat,
+            longitude: location.lon,
           })),
         })),
       );
