@@ -2,9 +2,9 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { GeoLocationService } from './geolocation.service';
 
-@Controller()
+@Controller('/geolocation')
 export class GeoLocationController {
-  constructor(private geoLocationService: GeoLocationService) {}
+  constructor(private readonly geoLocationService: GeoLocationService) {}
 
   @Get(':city')
   getLocation(@Param('city') city: string): Observable<any> {

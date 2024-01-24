@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
-import { map } from 'rxjs';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { catchError, map, of } from 'rxjs';
 
 @Injectable()
 export class GeoLocationService {
@@ -11,13 +11,14 @@ export class GeoLocationService {
       .get(`https://nominatim.openstreetmap.org/search?format=json&q=${city}`)
       .pipe(
         map((response) => response.data),
-        map((data) => ({
-          city: data.map(city => city.display_name),
-          locations: data.map(location => ({
-            latitude: location.lat,
-            longitude: location.lon,
-          })),
-        })),
+        map((data) => data.map(city => ({
+            city: city.display_name,
+            latitude: city.lat,
+            longitude: city.lon,
+          }))),
+          catchError((error) => {
+            return of(new NotFoundException('City data not found:', error));
+          }),
       );
   }
 }
