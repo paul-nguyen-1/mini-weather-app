@@ -12,6 +12,7 @@ export class GeoLocationService {
       .pipe(
         map((response) => response.data),
         map((data) => data.map(city => ({
+            city: city.display_name,
             latitude: city.lat,
             longitude: city.lon,
           }))),
