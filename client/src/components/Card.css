@@ -1,15 +1,22 @@
-.cards{
-    display: flex;
-    justify-content: space-evenly;
-    flex-flow: row wrap;
-    gap: 25px;
+.cards {
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+  gap: 25px;
 }
 
-.card{
-    display: flex;
-    justify-content: center;
-    background-color: rgba(100, 100, 100, 0.569);
-    border: 1px solid black;
-    width: 25%;
-    height: 350px;
+.card {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  background-color: rgba(100, 100, 100, 0.569);
+  border: 1px solid black;
+  width: 25%;
+  height: 350px;
+}
+
+@media (max-width: 1240px) {
+  .card {
+    width: 50%;
+  }
 }

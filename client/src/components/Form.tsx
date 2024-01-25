@@ -14,6 +14,7 @@ function Form() {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        window.scrollTo(0,0)
         setLoader(false)
         fetchWeather();
         fetchGeolocationCity();

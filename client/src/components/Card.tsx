@@ -13,13 +13,9 @@ function Card({ city, weather }: CardProps) {
             {weather?.map((item, index) => (
                 <div className='card' key={index}>
                     <h1>
-                        {typeof item === 'number' ? <h2>{item}</h2> : <h2>{item.status === 404 && 'Weather data unavailable.'}</h2>}
+                        {typeof item === 'number' ? <span>{item}&deg;F</span> : <span>{item.status === 404 && 'Weather data unavailable.'}</span>}
                     </h1>
-                </div>
-            ))}
-            {city.map((name, index) => (
-                <div className='card' key={index}>
-                    <h2>{name}</h2>
+                    <h2>{city[index]}</h2>
                 </div>
             ))}
         </div>
