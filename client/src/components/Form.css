@@ -1,0 +1,16 @@
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+label{
+    font-size: 18px;
+}
+
+input{
+    padding: 5px 0;
+    margin: 0 10px;
+}

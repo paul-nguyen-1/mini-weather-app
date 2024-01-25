@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "./Card";
 import Loader from "./Loader";
+import './Form.css'
 
 function Form() {
     const [city, setCity] = useState('');
@@ -43,7 +44,7 @@ function Form() {
     return (
         <div>
             {loader ? <Loader></Loader> : <Card city={geolocation} weather={weather}></Card>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form">
                 <label>
                     City:
                     <input type="text" value={city} onChange={handleCityChange} />
