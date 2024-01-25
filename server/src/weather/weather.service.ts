@@ -15,14 +15,12 @@ export class WeatherService {
     return this.geoLocationService.getLocation(city).pipe(
       mergeMap((locations) => {
         const weatherData = locations.map(({ latitude, longitude }) => {
-          //   console.log('Latitude:', latitude);
-          //   console.log('Longitude:', longitude);
           return this.httpService.get(`https://api.weather.gov/points/${latitude},${longitude}`)
             .pipe(
                 mergeMap((response) => {
                     return this.httpService.get(response.data.properties.forecast);
               }),
-              map((forecastResponse) => forecastResponse.data.properties),
+              map((forecastResponse) => forecastResponse.data.properties.periods[0].temperature),
               catchError((error) => {
                 return of(new NotFoundException('Weather data not found:', error));
               }),
