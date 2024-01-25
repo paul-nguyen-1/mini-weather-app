@@ -4,7 +4,8 @@ import Loader from "./Loader";
 
 function Form() {
     const [city, setCity] = useState('');
-    const [weather, setWeather] = useState(null)
+    const [loader, setLoader] = useState(true)
+    const [weather, setWeather] = useState([])
     const [geolocation, setGeolocation] = useState([])
 
     const handleCityChange = (e: any) => {
@@ -13,6 +14,7 @@ function Form() {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        setLoader(false)
         fetchWeather();
         fetchGeolocationCity();
     };
@@ -20,11 +22,12 @@ function Form() {
     const fetchWeather = () => {
         fetch(`http://localhost:3000/weather/${city}`)
             .then(res => res.json())
-            .then((data: any) => {
-                setWeather(data)
+            .then((data) => {
+                setWeather(data);
             })
             .catch(error => console.error('Error fetching weather data:', error));
     };
+    
 
     const fetchGeolocationCity = () => {
         fetch(`http://localhost:3000/geolocation/${city}`)
@@ -38,7 +41,7 @@ function Form() {
 
     return (
         <div>
-            {!weather ? <Loader></Loader> : <Card city={geolocation}></Card>}
+            {loader ? <Loader></Loader> : <Card city={geolocation} weather={weather}></Card>}
             <form onSubmit={handleSubmit}>
                 <label>
                     City:
