@@ -1,0 +1,53 @@
+import { useState } from "react";
+import Card from "./Card";
+import Loader from "./Loader";
+
+function Form() {
+    const [city, setCity] = useState('');
+    const [weather, setWeather] = useState(null)
+    const [geolocation, setGeolocation] = useState([])
+
+    const handleCityChange = (e: any) => {
+        setCity(e.target.value);
+    };
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        fetchWeather();
+        fetchGeolocationCity();
+    };
+
+    const fetchWeather = () => {
+        fetch(`http://localhost:3000/weather/${city}`)
+            .then(res => res.json())
+            .then((data: any) => {
+                setWeather(data)
+            })
+            .catch(error => console.error('Error fetching weather data:', error));
+    };
+
+    const fetchGeolocationCity = () => {
+        fetch(`http://localhost:3000/geolocation/${city}`)
+            .then(res => res.json())
+            .then((data: any) => {
+                const cityNames = data.map((name: any) => name.city);
+                setGeolocation(cityNames);
+            })
+            .catch(error => console.error('Error fetching geolocation data:', error));
+    };
+
+    return (
+        <div>
+            {!weather ? <Loader></Loader> : <Card city={geolocation}></Card>}
+            <form onSubmit={handleSubmit}>
+                <label>
+                    City:
+                    <input type="text" value={city} onChange={handleCityChange} />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    );
+}
+
+export default Form;
